@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Cache dependencies
-        uses: Swatinem/rush-cache@v2
+        uses: Swatinem/rust-cache@v2
       - name: Install Rust toolchain
         run: rustup toolchain install stable
       - name: Install cargo-related tools
