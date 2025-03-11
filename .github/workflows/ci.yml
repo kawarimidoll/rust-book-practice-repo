@@ -1,0 +1,35 @@
+name: CI for rusty-book-manager
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths-ignore:
+      - "README.md"
+      - "helloworld/**"
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rusty-book-manager
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache dependencies
+        uses: Swatinem/rush-cache@v2
+      - name: Install Rust toolchain
+        run: rustup toolchain install stable
+      - name: Install cargo-related tools
+        uses: taiki-e/install-action@v2
+        with:
+          tool: nextest,cargo-make
+      - name: Tests compile
+        run: cargo make test-ci --no-run --locked
+      - name: Test
+        run: cargo make test-ci
+      - name: Clippy
+        run: cargo make clippy-ci -- -Dwarnings
+      - name: Format
+        run: cargo make fmt -- --check
