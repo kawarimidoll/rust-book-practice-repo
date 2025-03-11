@@ -10,3 +10,4 @@ derive-new.workspace = true
 kernel.workspace = true
 shared.workspace = true
 sqlx.workspace = true
+uuid.workspace = true
