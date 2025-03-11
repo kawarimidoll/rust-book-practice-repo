@@ -1,7 +1,7 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
 use adapter::database::connect_database_with;
-use anyhow::{Error, Result};
+use anyhow::Result;
 use api::route::{book::build_book_routes, health::build_health_check_routes};
 use axum::Router;
 use registry::AppRegistry;
