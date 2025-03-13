@@ -43,11 +43,13 @@ pub async fn show_book_list(
     // .map(Json) は .map(|v| Json(v)) と同じ
 }
 
+#[tracing::instrument(skip(_user, registry), fields(user_id = %_user.id().to_string()))]
 pub async fn show_book(
     _user: AuthorizedUser,
     Path(book_id): Path<BookId>,
     State(registry): State<AppRegistry>,
 ) -> AppResult<Json<BookResponse>> {
+    tracing::info!("ここにログを追加したよ〜");
     registry
         .book_repository()
         .find_by_id(book_id)
